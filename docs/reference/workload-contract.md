@@ -33,7 +33,7 @@ through an environment variable and signals across it with sentinel files.
 | `SNAPSHOT_CONTROL_DIR` | agent → workload | Path to the control directory (mounted at `/snapshot-control`). The workload reads it here rather than hard-coding the path. |
 | `ready-for-snapshot` | workload writes | The workload is quiesced and safe to checkpoint. The source pod's readiness probe gates on this file. |
 | `restore-complete` | agent writes, workload waits | The workload's state is restored; it may resume. |
-| `SNAPSHOT_RESTORE_STANDBY` | producer → workload | When `1`, this process is a restore placeholder: stay inert and do not initialize. |
+| `SNAPSHOT_RESTORE_STANDBY` | producer → workload | When `1`, this process is a restore placeholder: the workload must stay inert and not initialize. |
 | `<framework>-restore-ready` | workload writes | A workload-chosen sentinel meaning "restored and serving." The restore pod's readiness probe gates on it. |
 
 The agent-owned side of this channel (and its `cuda-checkpoint-job` file) is
